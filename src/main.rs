@@ -2,6 +2,7 @@
 use monte_carlo::option::EuropeanCallOption;
 use monte_carlo::monte_carlo::price_call;
 use monte_carlo::gbm::gbm;
+use monte_carlo::black_scholes;
 fn main() {
 
     let spot = 100.0;     // S0 spot price, the current price of the underlying asset
@@ -19,7 +20,9 @@ fn main() {
     };
 
     let (option_price, terminal_price) = price_call(&option, 1_000_000);
+    let bs_price = black_scholes::price_call(&option);
 
-    println!("The price of the European call option is: {:.4}", option_price);
+    println!("Monte Carlo price:   {:.4}", option_price);
+    println!("Black-Scholes price: {:.4}", bs_price);
     println!("The terminal price of the underlying asset is: {:.4}", terminal_price);
 }
